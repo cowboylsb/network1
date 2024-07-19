@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -38,8 +39,8 @@ public class Wifi_infoController {
 
     // 새로운 사용자 추가
     @PostMapping
-    public Wifi_info addWifi_info(@RequestBody Wifi_infoDTO wifi_info) {
-        return Wifi_infoService.saveWifi_info(wifi_info.getLatitude(), wifi_info.getLongitude(), wifi_info.getAltitude(), wifi_info.getBssid(), wifi_info.getRssi(), wifi_info.getFrequency(), wifi_info.getLabel());
+    public List<Wifi_info> addWifi_info(@RequestBody List<Wifi_infoDTO> wifi_infos) {
+        return wifi_infos.stream().map(dto -> Wifi_infoService.saveWifi_info(dto.getLatitude(), dto.getLongitude(), dto.getAltitude(), dto.getBssid(), dto.getRssi(), dto.getFrequency(), dto.getLabel())).collect(Collectors.toList());
     }
 
     // 사용자 정보 업데이트
