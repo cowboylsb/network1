@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 
+import java.time.LocalDateTime;
+
 @Service
 public class Wifi_infoService {
 
@@ -18,6 +20,7 @@ public class Wifi_infoService {
         wifi_info.setRssi(RSSI);
         wifi_info.setFrequency(Frequency);
         wifi_info.setLabel(Label);
+        wifi_info.setDate(LocalDateTime.now());
         return Wifi_infoRepository.save(wifi_info);
     }
 }

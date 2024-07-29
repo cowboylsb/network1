@@ -7,9 +7,13 @@ import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+
 @Getter
 @Setter
-@Document(collection = "test")
+@Document(collection = "test2")
 public class Wifi_info {
 
     @Id
@@ -26,17 +30,20 @@ public class Wifi_info {
     private int frequency;
     @Field("label")
     private String label;
+    @Field("date")
+    private LocalDateTime date;
 
 // 생성자
     public Wifi_info() {}
 
-    public Wifi_info(GeoJsonPoint location, double altitude, String bssid, int rssi, int frequency, String label) {
+    public Wifi_info(GeoJsonPoint location, double altitude, String bssid, int rssi, int frequency, String label, LocalDateTime date) {
         this.location = location;
         this.altitude = altitude;
         this.bssid = bssid;
         this.rssi = rssi;
         this.frequency = frequency;
         this.label = label;
+        this.date = date;
     }
 
     @Override
@@ -49,6 +56,7 @@ public class Wifi_info {
                 ", RSSI=" + rssi +
                 ", Frequency=" + frequency +
                 ", Label='" + label + '\'' +
+                ", Date ='" + date + '\'' +
                 '}';
     }
 
@@ -74,5 +82,11 @@ public class Wifi_info {
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public void setDate(LocalDateTime date) {
+        ZonedDateTime utcZonedDateTime = date.atZone(ZoneId.of("UTC"));
+        ZonedDateTime kstZonedDateTime = utcZonedDateTime.withZoneSameInstant(ZoneId.of("Asia/Seoul"));
+        this.date = kstZonedDateTime.toLocalDateTime();
     }
 }
