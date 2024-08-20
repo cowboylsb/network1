@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/wifi_info")
 public class Wifi_infoController {
 
-    private static final Log log = LogFactory.getLog(Wifi_infoController.class);
     @Autowired
     private Wifi_infoRepository Wifi_infoRepository;
     @Autowired
@@ -32,15 +31,11 @@ public class Wifi_infoController {
     public Wifi_info getWifi_infoById(@PathVariable String id) {
         return Wifi_infoRepository.findById(id).orElse(null);
     }
-    @GetMapping("/name/{name}")
-    public List<Wifi_info> getWifi_infoByBssid(@PathVariable String bssid) {
-        return Wifi_infoRepository.findByBssid(bssid);
-    }
 
     // 새로운 사용자 추가
     @PostMapping
-    public List<Wifi_info> addWifi_info(@RequestBody List<Wifi_infoDTO> wifi_infos) {
-        return wifi_infos.stream().map(dto -> Wifi_infoService.saveWifi_info(dto.getLatitude(), dto.getLongitude(), dto.getAltitude(), dto.getBssid(), dto.getRssi(), dto.getFrequency(), dto.getLabel())).collect(Collectors.toList());
+    public Wifi_info addWifiInfo(@RequestBody Wifi_infoDTO wifiInfoDTO) {
+        return Wifi_infoService.saveWifiInfo(wifiInfoDTO);
     }
 
     // 사용자 정보 업데이트

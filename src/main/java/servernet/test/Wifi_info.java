@@ -10,10 +10,11 @@ import org.springframework.data.mongodb.core.mapping.Field;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.List;
 
 @Getter
 @Setter
-@Document(collection = "test2")
+@Document(collection = "listtest")
 public class Wifi_info {
 
     @Id
@@ -22,12 +23,8 @@ public class Wifi_info {
     private GeoJsonPoint location;
     @Field("altitude")
     private double altitude;
-    @Field("bssid")
-    private String bssid;
-    @Field("rssi")
-    private int rssi;
-    @Field("frequency")
-    private int frequency;
+    @Field("ap_info_list")
+    private List<AP_infoDTO> apInfoList;
     @Field("label")
     private String label;
     @Field("date")
@@ -36,12 +33,10 @@ public class Wifi_info {
 // 생성자
     public Wifi_info() {}
 
-    public Wifi_info(GeoJsonPoint location, double altitude, String bssid, int rssi, int frequency, String label, LocalDateTime date) {
+    public Wifi_info(GeoJsonPoint location, double altitude, List<AP_infoDTO> apInfoList, String label, LocalDateTime date) {
         this.location = location;
         this.altitude = altitude;
-        this.bssid = bssid;
-        this.rssi = rssi;
-        this.frequency = frequency;
+        this.apInfoList = apInfoList;
         this.label = label;
         this.date = date;
     }
@@ -52,11 +47,9 @@ public class Wifi_info {
                 "id='" + id + '\'' +
                 ", location=" + location +
                 ", altitude=" + altitude +
-                ", BSSID='" + bssid + '\'' +
-                ", RSSI=" + rssi +
-                ", Frequency=" + frequency +
-                ", Label='" + label + '\'' +
-                ", Date ='" + date + '\'' +
+                ", apInfoList=" + apInfoList +
+                ", label='" + label + '\'' +
+                ", date='" + date + '\'' +
                 '}';
     }
 
@@ -66,18 +59,6 @@ public class Wifi_info {
 
     public void setAltitude(double altitude) {
         this.altitude = altitude;
-    }
-
-    public void setBssid(String bssid) {
-        this.bssid = bssid;
-    }
-
-    public void setRssi(int rssi) {
-        this.rssi = rssi;
-    }
-
-    public void setFrequency(int frequency) {
-        this.frequency = frequency;
     }
 
     public void setLabel(String label) {

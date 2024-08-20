@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -11,10 +12,16 @@ public class Wifi_infoDTO {
     private double latitude;
     private double longitude;
     private double altitude;
-    private String bssid;
-    private int rssi;
-    private int frequency;
+    private List<AP_infoDTO> apInfoList;
     private String label;
+
+    public Wifi_infoDTO(double latitude, double longitude, double altitude, List<AP_infoDTO> apInfoList, String label) {
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.altitude = altitude;
+        this.apInfoList = apInfoList;
+        this.label = label;
+    }
 
     public double getLatitude() {
         return latitude;
@@ -37,31 +44,14 @@ public class Wifi_infoDTO {
         this.altitude = altitude;
     }
 
-    public String getBssid() {
-        return bssid;
-    }
-    public void setBssid(String bssid) {
-        this.bssid = bssid;
-    }
-
-    public int getRssi() {
-        return rssi;
-    }
-    public void setRssi(int rssi) {
-        this.rssi = rssi;
-    }
-
-    public int getFrequency() {
-        return frequency;
-    }
-    public void setFrequency(int frequency) {
-        this.frequency = frequency;
-    }
-
     public String getLabel() {
         return label;
     }
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    public List<AP_infoDTO> getApInfoList() {
+        return apInfoList;
     }
 }
