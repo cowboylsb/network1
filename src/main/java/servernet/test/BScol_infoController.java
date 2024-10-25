@@ -23,6 +23,7 @@ public class BScol_infoController {
     // 새로운 추가
     @PostMapping
     public BScol_info addBScolInfo(@RequestBody BScol_infoDTO bscolInfoDTO) {
+        System.out.println("data complete");
         return BScol_infoService.saveBscolInfo(bscolInfoDTO);
     }
 }
